@@ -1,0 +1,71 @@
+{% extends 'base/index.html' %}
+{% load static %}
+{% block content %}
+  <style>
+    /* Custom green background for success */
+    .success-background {
+      background-color: #d4edda; /* Light green background */
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .success-card {
+      background-color: rgb(200, 200, 200); /* White card background */
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+      text-align: center;
+      max-width: 500px;
+      width: 100%;
+    }
+    .success-icon {
+      color: #28a745; /* Green icon color */
+      font-size: 4rem;
+      margin-bottom: 1rem;
+    }
+    .success-title {
+      color: #28a745; /* Green title color */
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+    .success-message {
+      color: #155724; /* Dark green text color */
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+    .success-button {
+      background-color: #28a745; /* Green button background */
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      color: #fff; /* White text color */
+      transition: background-color 0.3s ease;
+    }
+    .success-button:hover {
+      background-color: #218838; /* Darker green on hover */
+    }
+  </style>
+
+  <div class="container d-flex justify-content-center align-items-center">
+    <div class="success-card">
+      <!-- Success Icon -->
+      <i class="bi bi-check-circle-fill success-icon"></i>
+      
+      <!-- Success Title -->
+      <h1 class="success-title">Vote Submitted Successfully!</h1>
+      
+      <!-- Success Message -->
+      <p class="success-message">
+        Thank you for participating in the election. Your vote has been recorded successfully.
+      </p>
+      
+      <!-- Button to Redirect -->
+      <a href="{% url 'home' %}" class="btn success-button">
+        <i class="bi bi-house-door"></i> Return to Home
+      </a>
+    </div>
+  </div>
+{% endblock %}

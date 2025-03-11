@@ -1,0 +1,86 @@
+{% extends 'base/index.html' %}
+{% load static %}
+{% block content %}
+  <style>
+    .candidate-card {
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .candidate-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    .candidate-card.selected {
+      border-color: #0d6efd;
+      background-color: rgba(13, 110, 253, 0.1);
+    }
+  </style>
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-info alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+  {% endif %}
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card shadow">
+          <div class="card-header bg-primary text-white text-center">
+            <h3 class="card-title mb-0"><img src="{% static 'images/gdsc.png' %}" alt="Logo" width="300" height="50" class="d-inline-block align-text-top" style="object-fit: cover;"></h3>
+          </div>
+          <div class="card-body">
+            <form method="POST" action="{% url 'vote' %}">
+              {% csrf_token %}
+              {% for position in positions %}
+                <div class="card mb-4">
+                  <div class="card-header">
+                    <h5 class="card-title">{{ position.name }}</h5>
+                  </div>
+                  <div class="card-body">
+                    <div class="row g-3">
+                      {% for candidate in position.candidates.all %}
+                        <div class="col-md-6">
+                          <div class="card candidate-card p-3" onclick="selectCandidate('{{ position.id }}_{{ candidate.id }}')">
+                            <div class="d-flex align-items-center">
+                              <img src="{{ candidate.imageURL }}" alt="{{ candidate.name }}" class="rounded-circle me-3" style="width: 80px; height: 80px; object-fit: cover;">
+                              <div>
+                                <h6 class="mb-1">{{ candidate.name }}</h6>
+                                <p class="text-muted mb-0">{{ candidate.bio }}</p>
+                              </div>
+                              <input type="radio" name="position_{{ position.id }}" value="{{ candidate.id }}" id="{{ position.id }}_{{ candidate.id }}" style="display: none;">
+                            </div>
+                          </div>
+                        </div>
+                      {% endfor %}
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+              <div class="text-center mt-4">
+                <button type="submit" class="btn btn-primary btn-lg">Submit Votes</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function selectCandidate(candidateId) {
+      // Set the selected radio button
+      document.getElementById(candidateId).checked = true;
+
+      // Remove selected class from all cards
+      document.querySelectorAll('.candidate-card').forEach(card => {
+        card.classList.remove('selected');
+      });
+
+      // Add selected class to the clicked card
+      event.currentTarget.classList.add('selected');
+    }
+  </script>
+{% endblock %}

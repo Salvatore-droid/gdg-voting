@@ -1,0 +1,19 @@
+{% extends "admin/index.html" %}  <!-- Extend the default admin index template -->
+
+{% block content %}
+<div class="container-fluid">
+    <h1>Vote Summary Dashboard</h1>
+    <div class="row">
+        {% for summary in vote_summaries %}
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">{{ summary.name }}</h5>
+                    <p class="card-text">Total Votes: {{ summary.votes }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

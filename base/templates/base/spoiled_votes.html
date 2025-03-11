@@ -1,0 +1,53 @@
+{% extends 'base/index.html' %}  <!-- Extend your base template if you have one -->
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Spoiled Votes</h1>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Voter</th>
+                    <th scope="col">Position</th>
+                    <th scope="col">Candidate</th>
+                    <th scope="col">Reason</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for vote in spoiled_votes %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ vote.voter.user.username }}</td>
+                    <td>
+                        {% if vote.position %}
+                            {{ vote.position.name }}
+                        {% else %}
+                            No Position
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if vote.candidate %}
+                            {{ vote.candidate.name }}
+                        {% else %}
+                            No Candidate
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if not vote.candidate %}
+                            No Candidate Selected
+                        {% elif not vote.position %}
+                            No Position Selected
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center">No spoiled votes found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

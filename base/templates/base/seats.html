@@ -1,0 +1,50 @@
+{% extends 'base/index.html' %}
+{% load static %}
+{% block content %}
+  <div class="container mt-5">
+    <div class="card shadow">
+      <div class="card-header bg-primary text-white">
+        <h3 class="card-title text-center">Available Positions</h3>
+      </div>
+      <div class="card-body">
+        <div class="mb-3">
+          <input type="text" class="form-control" placeholder="Search positions..." id="searchInput">
+        </div>
+        {% if positions %}
+          <div class="list-group">
+            {% for position in positions %}
+              <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <span class="fw-bold">
+                  <i class="bi bi-person-badge me-2"></i> {{ position.name }}
+                </span>
+                <a href="{% url 'position_details' position.id %}" class="btn btn-outline-primary btn-sm">View Details</a>
+              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="alert alert-warning text-center">
+            No positions available at the moment.
+          </div>
+        {% endif %}
+      </div>
+      <div class="card-footer text-center">
+        <a href="{% url 'home' %}" class="btn btn-primary">Return to Home</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('searchInput').addEventListener('input', function () {
+      const searchTerm = this.value.toLowerCase();
+      const items = document.querySelectorAll('.list-group-item');
+      items.forEach(item => {
+        const positionName = item.querySelector('.fw-bold').textContent.toLowerCase();
+        if (positionName.includes(searchTerm)) {
+          item.style.display = 'flex';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+  </script>
+{% endblock %}

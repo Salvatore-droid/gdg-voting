@@ -1,0 +1,137 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rongo Voting System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+      /* Retain your custom styles */
+      .custom-link {
+        background-color: rgb(180, 180, 15);
+        color: #000;
+        transition: background-color 0.3s ease;
+        border-radius: 10px;
+      }
+      .custom-link:hover {
+        background-color: rgb(160, 160, 15);
+      }
+      .custom-list-group {
+        width: 600px;
+        border: 1px solid grey;
+        padding: 50px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
+        background-color: aliceblue;
+      }
+      .custom-list-group a {
+        border: 1px solid grey;
+        background-color: rgb(180, 180, 15);
+        text-align: center;
+        margin-left: 50px;
+        font-family: 'Times New Roman', Times, serif;
+      }
+      .custom-list-group a:hover {
+        color: white;
+        background-color: rgb(160, 160, 15);
+      }
+      .circle-bottom-left {
+        width: 600px;
+        height: 500px;
+        background-color: rgb(90, 180, 250);
+        border-radius: 50%;
+        position: fixed;
+        bottom: 100px;
+        left: 600px;
+        z-index: -100;
+      }
+      .circle-center {
+        width: 300px;
+        height: 300px;
+        background-color: rgb(90, 180, 250);
+        border-radius: 50%;
+        position: fixed;
+        top: 200;
+        right: 100;
+        z-index: -100;
+      }
+      .custom-link .bi {
+        color: white;
+      }
+    </style>
+  </head>
+  <body class="d-flex flex-column vh-100 overflow-hidden">
+    <!-- Navbar -->
+    <nav class="navbar navbar-light bg-light px-3 py-3" style="border-bottom: 2px solid rgb(160, 160, 15); box-shadow: 0px 0px 15px rgb(0, 140, 255);">
+      <div class="container-fluid d-flex align-items-center">
+        <!-- Toggle Button -->
+        <button class="btn btn-primary me-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Logo and Text -->
+        <a class="navbar-brand d-flex align-items-center me-auto" href="#">
+          <!-- <img src="{% static 'images/gdsc.png' %}" alt="Logo" width="300" height="50" class="d-inline-block align-text-top" style="object-fit: cover;"> -->
+          <img src="{% static 'images/google.png' %}" alt="Logo" width="300" height="100" class="d-inline-block align-text-top" style="object-fit: cover;">
+          <!-- <span style=" color: rgb(5, 131, 173); font-family: 'Times New Roman', Times, serif; font-style:italic;" class="fs-2">Rongo-GDG-Voting-System</span> -->
+        </a>
+
+        <!-- User Info -->
+        <h4 style="font-family: 'Times New Roman', Times, serif; color: rgb(0, 140, 255); font-style: italic; font-size: 20px;">
+          <span style="color: #000;">
+            <img src="{% static 'images/gdg.png' %}" style="width:50px; height:50px; object-fit:cover; border-radius:50%; background-color:grey;" alt="">
+          </span> {{ request.user }}
+        </h4>
+
+        <!-- Logout Button -->
+        <a href="{% url 'logout_view' %}" class="btn btn-primary" style="padding: 10px 30px;margin-left: 20px;">Logout</a>
+      </div>
+    </nav>
+
+    <!-- Offcanvas Sidebar -->
+    <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+      <div class="offcanvas-header">
+        <!-- Logo -->
+        <a class="navbar-brand" href="#">
+          <img src="{% static 'images/Logo.png' %}" alt="Logo" width="150" height="75" style="object-fit: cover;">
+        </a>
+        <!-- Close Button -->
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body p-10 d-flex flex-column">
+        <!-- Home Link -->
+        <a href="{% url 'home' %}" class="d-block text-decoration-none p-2 border-bottom mb-2 custom-link text-center w-100">
+          <i class="bi bi-house-door me-2"></i> Home
+        </a>
+
+        <!-- Review Link -->
+        <a href="{% url 'review' %}" class="d-block text-decoration-none p-2 border-bottom mb-2 custom-link text-center w-100">
+          <i class="bi bi-clipboard-check me-2"></i> Review
+        </a>
+        <a href="{% url 'spoiled_votes' %}" class="d-block text-decoration-none p-2 border-bottom mb-4 custom-link text-center w-100">
+          <i class="bi bi-clipboard-check me-2"></i> Spoiled Votes
+        </a>
+
+        <!-- Logout Link -->
+        <a href="#" class="d-block text-decoration-none p-2 custom-link text-center w-100">
+          <i class="bi bi-box-arrow-right me-2"></i> Logout
+        </a>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-grow-1 overflow-auto" style="margin-top: 20px; margin-bottom:50px;"> <!-- Adjusted margin-top -->
+      {% block content %}
+      {% endblock %}
+    </div>
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,32 @@
+{% extends 'base/index.html' %}
+{% load static %}
+{% block content %}
+  <div class="container mt-5">
+    <div class="card shadow">
+      <div class="card-header bg-primary text-white">
+        <h3 class="card-title text-center">{{ position.name }} - Candidates</h3>
+      </div>
+      <div class="card-body">
+        {% if candidates %}
+          <div class="list-group">
+            {% for candidate in candidates %}
+              <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <span class="fw-bold">
+                  <i class="bi bi-person-badge me-2"></i> {{ candidate.name }}
+                </span>
+                <span>{{ candidate.bio }}</span>
+              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="alert alert-warning text-center">
+            No candidates available for this position.
+          </div>
+        {% endif %}
+      </div>
+      <div class="card-footer text-center">
+        <a href="{% url 'positions_list' %}" class="btn btn-primary">Back to Positions</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}

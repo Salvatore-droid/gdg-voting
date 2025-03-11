@@ -1,0 +1,22 @@
+{% extends 'base/index.html' %}
+{% load static %}
+{% block content %}
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+    {% endif %}
+    <div class="container d-flex justify-content-center align-items-center">
+        <div class="col-4 d-flex flex-column justify-content-center align-items-center">
+            <div id="list-example" class="list-group custom-list-group">
+                <a class="list-group-item list-group-item-action mb-2 custom-list-group-item" href="{% url 'vote' %}">Vote Now</a>
+                <a class="list-group-item list-group-item-action mb-2 custom-list-group-item" href="{% url 'positions_list' %}">Curent runners seats</a>
+                <a class="list-group-item list-group-item-action mb-2 custom-list-group-item" href="{% url 'review' %}">Review</a>
+                <a class="list-group-item list-group-item-action custom-list-group-item" href="{% url 'voting_status' %}">Voting Status</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
