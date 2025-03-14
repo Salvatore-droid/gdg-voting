@@ -15,7 +15,7 @@
       width: 400px; /* Set the width to 400px */
       border: 1px solid grey;
       padding: 50px;
-      background: linear-gradient(to bottom, rgb(200, 200, 15), rgb(7, 7, 63));
+      background: linear-gradient(to bottom, rgba(0, 251, 255, 0.661), rgb(0, 0, 36));
       border-radius: 5px;
       box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
       display: flex;
@@ -60,6 +60,7 @@
         </div>
       {% endfor %}
     {% endif %}
+    <img src="{% static 'images/gdg.png' %}" style="width: 100px; height:100px;" alt="">  
     <div class="custom-container">
       <img src="{% static 'images/Logo.png' %}" alt="">  
       <form class="d-flex flex-column gap-2" method="POST">
@@ -72,8 +73,6 @@
 
       <div class="form-links">
         <a href="#">Forgot Password?</a> <!-- Forgot Password Link -->
-        <span class="mx-2">|</span> <!-- Separator -->
-        <a href="{% url 'register' %}">Create Account</a> <!-- Create Account Link -->
       </div>
     </div>
   </div>
